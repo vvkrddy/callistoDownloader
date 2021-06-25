@@ -5,9 +5,10 @@ from bs4 import BeautifulSoup
 import datetime
 
 
-url = ''
+url = 'http://soleil80.cs.technik.fhnw.ch/solarradio/data/2002-20yy_Callisto/'
+url_descr = 'http://soleil.i4ds.ch/solarradio/data/readme.txt'
 
-def which_years():
+def years():
 	"""
 	Returns those years for which data is available
 
@@ -26,13 +27,10 @@ def which_years():
 	for i in range(len(soup.find_all('a'))-6):
 		years.append(soup.find_all('a')[5+i].get_text()[0:-1])
 
-	for i in years:
-		print(i,end="\t")
-
 	return years
 
 
-def which_months(select_year):
+def months(select_year):
 	"""
 	Returns those years for which data is available
 
@@ -55,10 +53,10 @@ def which_months(select_year):
 	select_year_str = str(select_year)
 	while True:
 		try:
-			if(select_year_str in which_years()):
+			if(select_year_str in years()):
 				break
 		except:
-		# executed if which_years() hasn't been called before
+		# executed if years() hasn't been called before
 			return None
 			
 	# following code is executed only if break occurs in the if conditions above
@@ -68,14 +66,11 @@ def which_months(select_year):
 	months = []
 	for i in range(len(soup.find_all('a'))-5):
 		months.append(soup.find_all('a')[5+i].get_text()[0:-1])
-
-	for i in months:
-		print(i,end="\t")
 		
 	return months 
 
 
-def which_days(select_year, select_month):
+def days(select_year, select_month):
 	"""
 	Returns those days for which data is available in the given month and year
 
@@ -93,7 +88,9 @@ def which_days(select_year, select_month):
 	# errors handling
 	assert (len(str(select_year)) == 4 and type(select_year) == int), "Year must be a 4-digit integer."
 	assert (select_month >= 1 and select_month <=12 and type(select_month) == int), "Month must be a valid number."
-	
+	if(datetime.date.today().year == select_year):
+		assert (datetime.date.today().month >= select_month), "The month has not yet occurred"
+
 	# if this function returns None, then it means there is no data for the month in a given year
 	
 	if select_month < 10:
@@ -104,7 +101,7 @@ def which_days(select_year, select_month):
 	
 	while True:
 		try:
-			if(select_month_str in which_months(select_year)):
+			if(select_month_str in months(select_year)):
 				break
 			else:
 				# when the given year doesn't have data for the given month
@@ -121,13 +118,11 @@ def which_days(select_year, select_month):
 	for i in range(len(soup.find_all('a'))-5):
 		days.append(soup.find_all('a')[5+i].get_text()[0:-1])
 
-	for i in days:
-		print(i,end='\t')	
 	return days
 
 
 
-def which_instruments(select_year, select_month, select_day):
+def instruments(select_year, select_month, select_day):
 	"""
 	Returns those days for which data is available in the given month and year
 
@@ -155,9 +150,9 @@ def which_instruments(select_year, select_month, select_day):
 	try:
 		select_date = datetime.date.fromisoformat('{}-{}-{}'.format(select_year_str, select_month_str, select_day_str))
 	except ValueError:
-		raise ValueError("The date combination in which_instruments() is invalid") from None 
+		raise ValueError("The date combination in instruments() is invalid") from None 
 	
-	assert (select_date <= datetime.date.today()), "The date combination in which_instruments() has not yet occurred"
+	assert (select_date <= datetime.date.today()), "The date combination in instruments() has not yet occurred"
 	url_day = url + select_year_str + '/' + select_month_str + '/' + select_day_str + '/'
 	page = requests.get(url_day)
 	soup = BeautifulSoup(page.content, 'html.parser')
@@ -169,11 +164,25 @@ def which_instruments(select_year, select_month, select_day):
 		if(id_temp not in ids):
 			ids.append(id_temp)
 
-	for i in ids:
-		print(i,end="\t")
 
 	return ids
 
+def read_instruments():
+	url
+
+def which_years():
+	for i in years():
+		print(i,end="\t")	
+
+def which_months(select_year):
+	for i in months(select_year):
+		print(i,end="\t")
+
+def which_days(select_year, select_month):
+	for i in days(select_year, select_month):
+		print(i,end='\t')
+
+def which_instruments()
 
 
 
