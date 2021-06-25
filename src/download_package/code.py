@@ -122,47 +122,47 @@ def days(select_year, select_month):
 
 
 
-def instruments(select_year, select_month, select_day):
-	"""
-	Returns those days for which data is available in the given month and year
+# def instruments(select_year, select_month, select_day):
+# 	"""
+# 	Returns those days for which data is available in the given month and year
 
-	Parameters
-	----------
-	select_year: int
-	select_month: int
-	select_day: int
+# 	Parameters
+# 	----------
+# 	select_year: int
+# 	select_month: int
+# 	select_day: int
 	
-	Returns
-	-------
-	list
-		a list of strings representing the instrument/location IDs for which data is available in the given date
-	"""
+# 	Returns
+# 	-------
+# 	list
+# 		a list of strings representing the instrument/location IDs for which data is available in the given date
+# 	"""
 
-	if select_month < 10:
-		select_month_str = '0'+str(select_month)
-	else:
-		select_month_str = str(select_month)
-	select_year_str = str(select_year)
-	if select_day < 10:
-		select_day_str = '0'+str(select_day)
+# 	if select_month < 10:
+# 		select_month_str = '0'+str(select_month)
+# 	else:
+# 		select_month_str = str(select_month)
+# 	select_year_str = str(select_year)
+# 	if select_day < 10:
+# 		select_day_str = '0'+str(select_day)
 	
-	# errors handling
-	try:
-		select_date = datetime.date.fromisoformat('{}-{}-{}'.format(select_year_str, select_month_str, select_day_str))
-	except ValueError:
-		raise ValueError("The date combination in instruments() is invalid") from None 
+# 	# errors handling
+# 	try:
+# 		select_date = datetime.date.fromisoformat('{}-{}-{}'.format(select_year_str, select_month_str, select_day_str))
+# 	except ValueError:
+# 		raise ValueError("The date combination in instruments() is invalid") from None 
 	
-	assert (select_date <= datetime.date.today()), "The date combination in instruments() has not yet occurred"
-	url_day = url + select_year_str + '/' + select_month_str + '/' + select_day_str + '/'
-	page = requests.get(url_day)
-	soup = BeautifulSoup(page.content, 'html.parser')
-	assert ('404 Not Found' not in soup), "No data for the selected date"
-	print('asdf')
-	ids = []
-	for i in range(len(soup.find_all('a'))-5): # SLOW
-		id_temp = soup.find_all('a')[5+i].get_text().split('_')[0] + "_" + soup.find_all('a')[5+i].get_text().split('_')[-1][0:2]
-		if(id_temp not in ids):
-			ids.append(id_temp)
+# 	assert (select_date <= datetime.date.today()), "The date combination in instruments() has not yet occurred"
+# 	url_day = url + select_year_str + '/' + select_month_str + '/' + select_day_str + '/'
+# 	page = requests.get(url_day)
+# 	soup = BeautifulSoup(page.content, 'html.parser')
+# 	assert ('404 Not Found' not in soup), "No data for the selected date"
+# 	print('asdf')
+# 	ids = []
+# 	for i in range(len(soup.find_all('a'))-5): # SLOW
+# 		id_temp = soup.find_all('a')[5+i].get_text().split('_')[0] + "_" + soup.find_all('a')[5+i].get_text().split('_')[-1][0:2]
+# 		if(id_temp not in ids):
+# 			ids.append(id_temp)
 
 
 	return ids
@@ -182,7 +182,72 @@ def which_days(select_year, select_month):
 	for i in days(select_year, select_month):
 		print(i,end='\t')
 
-def which_instruments()
 
+
+def download(select_year, select_month, select_day, instruments):
+	"""
+	Downloads files from list of instruments for given list of days of a given month and year
+
+	Parameters
+	----------
+	yyyy: int
+	mm: int
+	dd: int
+
+	Returns
+	-------
+
+	Prints
+	-------
+	date, after downloads are finished for that particular day
+
+	"""
+
+	if select_month < 10:
+		select_month_str = '0'+str(select_month)
+	else:
+		select_month_str = str(select_month)
+	select_year_str = str(select_year)
+
+	
+	for d in select_day:
+
+		if d < 10:
+			d_str = '0'+str(d)
+		else:
+			d_str = str(d)
+
+		# errors handling
+		try:
+			select_date = datetime.date.fromisoformat('{}-{}-{}'.format(select_year_str, select_month_str, d_str))
+		except:
+			print("{}-{}-{} Date is invalid".format(select_year_str, select_month_str, d_str))
+			continue
+		
+		if(select_date >= datetime.date.today()):
+			print("{}-{}-{} The date has not yet occurred".format(select_year_str, select_month_str, d_str))
+			continue
+
+		url_day = url + select_year_str + '/' + select_month_str + '/' + d_str + '/'
+		page = requests.get(url_day)
+		soup = BeautifulSoup(page.content, 'html.parser')
+
+		if('404 Not Found' not in soup):
+		# print(url)
+			counter = 0
+			for n in range(len(soup.find_all('a'))-5):
+			
+				if(instrument in soup.find_all('a')[5+n].get_text()):
+					fname = soup.find_all('a')[5+n].get_text()
+					if not os.path.isdir('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,d_str)):
+						os.makedirs('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,d_str))
+					counter += 1
+					if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname))):
+						continue
+					urllib.request.urlretrieve(url+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname)) 
+
+			print('{}-{}-{} done'.format(select_year_str, select_month_str, d_str))
+		else:
+			raise ValueError("No data for the selected date") from None
 
 
