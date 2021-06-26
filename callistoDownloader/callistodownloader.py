@@ -163,7 +163,7 @@ def download(select_year, select_month, select_days, instruments):
 	"""
 
 
-	if(select_days != ALL and select_months != ALL):
+	if(select_days != ALL and select_month != ALL):
 		if(type(select_days) != list):
 			select_days = [int(str(select_days))] 
 		if(type(instruments) != list):
