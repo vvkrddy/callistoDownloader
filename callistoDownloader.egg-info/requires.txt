@@ -1,5 +1,4 @@
 requests
 os
-urllib
 bs4
 datetime

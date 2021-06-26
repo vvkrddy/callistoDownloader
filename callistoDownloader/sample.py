@@ -1,8 +1,8 @@
-import code as cd
+import re
 
-print(cd.__version__)
-# cd.which_years()
+def get_property(prop, project):
+    result = re.search(r'{}\s*=\s*[\'"]([^\'"]*)[\'"]'.format(prop),
+                       open(project + '/__init__.py').read())
+    return result.group(1)
 
-
-
-# help(cd.download)
+print(get_property('__version__', 'callistoDownloader'))

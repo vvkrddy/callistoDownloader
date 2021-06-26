@@ -27,7 +27,7 @@ setup(
     zip_safe=False,
     classifiers=[
 
-        'Development Status :: 3 - Alpha'      
+        'Development Status :: 3 - Alpha',      
 
         # Indicate who your project is intended for
         'Intended Audience :: Science/Research',
