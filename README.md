@@ -17,8 +17,8 @@ working directory/
                     file2..
 ```
 
-## Documentaion
-Soon to be published!
+## Documentation
+Soon!
 ## Functions of this package:
 `which_years()`
 <br>Prints all those years for which any spectrograms are available

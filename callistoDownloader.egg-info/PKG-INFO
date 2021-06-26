@@ -1,0 +1,15 @@
+Metadata-Version: 1.1
+Name: callistoDownloader
+Version: 0.1
+Summary: A python package to download e-Callisto spectrograms
+Home-page: https://github.com/vvkrddy/callistoDownloader
+Author: Pininti Vivek Reddy
+Author-email: UNKNOWN
+License: MIT
+Description: UNKNOWN
+Keywords: Solar Physics Astronomy Spectrogram
+Platform: UNKNOWN
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Astronomy :: Solar Physics
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.
