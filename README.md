@@ -20,10 +20,13 @@ working directory/
 
 ## Functions of this package:
 `which_years()`
+Prints all those years for which any spectrograms are available
 
 `which_months(select_year)`
+Prints all those months of a given year for which spectrograms are available
 
 `which_days(select_year, select_month)`
+Prints all those days of a given year and month for which spectrograms are available
 
 `download(select_year, select_month, select_days, instruments)`
-
+Downloads the spectrograms for given list of days of a given year and month; from given list of instruments
