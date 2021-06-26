@@ -6,7 +6,6 @@ import datetime
 
 
 url = 'http://soleil80.cs.technik.fhnw.ch/solarradio/data/2002-20yy_Callisto/'
-url_descr = 'http://soleil.i4ds.ch/solarradio/data/readme.txt'
 
 def years():
 	"""
