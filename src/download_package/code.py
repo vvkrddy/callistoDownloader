@@ -89,7 +89,7 @@ def days(select_year, select_month):
 	assert (len(str(select_year)) == 4 and type(select_year) == int), "Year must be a 4-digit integer."
 	assert (select_month >= 1 and select_month <=12 and type(select_month) == int), "Month must be a valid number."
 	if(datetime.date.today().year == select_year):
-		assert (datetime.date.today().month > select_month), "The month has not yet occurred"
+		assert (datetime.date.today().month >= select_month), "The month has not yet occurred"
 
 	# if this function returns None, then it means there is no data for the month in a given year
 	
@@ -120,73 +120,33 @@ def days(select_year, select_month):
 
 	return days
 
-
-
-# def instruments(select_year, select_month, select_day):
-# 	"""
-# 	Returns those days for which data is available in the given month and year
-
-# 	Parameters
-# 	----------
-# 	select_year: int
-# 	select_month: int
-# 	select_day: int
-	
-# 	Returns
-# 	-------
-# 	list
-# 		a list of strings representing the instrument/location IDs for which data is available in the given date
-# 	"""
-
-# 	if select_month < 10:
-# 		select_month_str = '0'+str(select_month)
-# 	else:
-# 		select_month_str = str(select_month)
-# 	select_year_str = str(select_year)
-# 	if select_day < 10:
-# 		select_day_str = '0'+str(select_day)
-	
-# 	# errors handling
-# 	try:
-# 		select_date = datetime.date.fromisoformat('{}-{}-{}'.format(select_year_str, select_month_str, select_day_str))
-# 	except ValueError:
-# 		raise ValueError("The date combination in instruments() is invalid") from None 
-	
-# 	assert (select_date <= datetime.date.today()), "The date combination in instruments() has not yet occurred"
-# 	url_day = url + select_year_str + '/' + select_month_str + '/' + select_day_str + '/'
-# 	page = requests.get(url_day)
-# 	soup = BeautifulSoup(page.content, 'html.parser')
-# 	assert ('404 Not Found' not in soup), "No data for the selected date"
-# 	print('asdf')
-# 	ids = []
-# 	for i in range(len(soup.find_all('a'))-5): # SLOW
-# 		id_temp = soup.find_all('a')[5+i].get_text().split('_')[0] + "_" + soup.find_all('a')[5+i].get_text().split('_')[-1][0:2]
-# 		if(id_temp not in ids):
-# 			ids.append(id_temp)
-
-
-	return ids
-
 def read_instruments():
 	url
 
 def which_years():
 	for i in years():
-		print(i,end="\t")	
+		print(i,end="\t")
+	print("\n")	
 
 def which_months(select_year):
 	for i in months(select_year):
 		print(i,end="\t")
+	print("\n")	
 
 def which_days(select_year, select_month):
 	for i in days(select_year, select_month):
 		print(i,end='\t')
+	print("\n")	
 
-ALL = 'pretty big string'
+ALL = 'ALL'
 
-def download_days(select_year, select_month, select_days, instruments):
+def download(select_year, select_month, select_days, instruments):
 	"""
 	Downloads files from list of instruments for given list of days of a given month and year
+
+	if select_days = ALL, data is downloaded for all the days of the given year and given month for the given list of instruments
+
+	if select_month = ALL, select_days argument is ignored (but still required; pass a random value) and data is downloaded for all the months of the given year for the given list of instruments  
 
 	Parameters
 	----------
@@ -202,80 +162,192 @@ def download_days(select_year, select_month, select_days, instruments):
 	-------
 
 	"""
-	if(select_days != ALL and select_months != ALL)
-		if(type(select_days) != list):
-			select_days = [int(str(select_days))] 
-		if(type(instruments) != list):
-			instruments = [str(instruments)] 
+	try:
 
-		# errors handling
-		assert (len(str(select_year)) == 4 and type(select_year) == int), "Year must be a 4-digit integer."
-		assert (select_month >= 1 and select_month <=12 and type(select_month) == int), "Month must be a valid number."
-		for instrument in instruments:
-			assert (type(instrument) == str), "Instruments must be a string or list of strings"
-		for d in select_days:
-			assert (type(d) == str), "Days must be an integer or list of integers"
-
-
-		if select_month < 10:
-			select_month_str = '0'+str(select_month)
-		else:
-			select_month_str = str(select_month)
-		select_year_str = str(select_year)
-		
-		for d in select_day:
-
-			if d < 10:
-				d_str = '0'+str(d)
-			else:
-				d_str = str(d)
+		if(select_days != ALL and select_months != ALL):
+			if(type(select_days) != list):
+				select_days = [int(str(select_days))] 
+			if(type(instruments) != list):
+				instruments = [str(instruments)] 
 
 			# errors handling
-			try:
-				select_date = datetime.date.fromisoformat('{}-{}-{}'.format(select_year_str, select_month_str, d_str))
-			except:
-				print("{}-{}-{} Date is invalid".format(select_year_str, select_month_str, d_str))
-				continue
-			
-			if(select_date > datetime.date.today()):
-				print("{}-{}-{} The date has not yet occurred".format(select_year_str, select_month_str, d_str))
-				continue
+			assert (len(str(select_year)) == 4 and type(select_year) == int), "Year must be a 4-digit integer."
+			assert (select_month >= 1 and select_month <=12 and type(select_month) == int), "Month must be a valid number."
+			for instrument in instruments:
+				assert (type(instrument) == str), "Instruments must be a string or list of strings"
+			for d in select_days:
+				assert (type(d) == str), "Days must be an integer or list of integers"
 
-			url_day = url + select_year_str + '/' + select_month_str + '/' + d_str + '/'
-			page = requests.get(url_day)
-			soup = BeautifulSoup(page.content, 'html.parser')
 
-			if('404 Not Found' not in soup):
-			# print(url)
-
-				counter = 0
-				for instrument in instruments:	
-					if(str(soup).count(instrument) > 0):
-						for n in range(len(soup.find_all('a'))-5):
-							if(instrument in soup.find_all('a')[5+n].get_text()):
-								fname = soup.find_all('a')[5+n].get_text()
-								print(url_day+fname)
-								if not os.path.isdir('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,d_str)):
-									os.makedirs('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,d_str))
-								counter += 1
-								if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname))):
-									continue
-								urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname)) 
-
-						print('{}-{}-{} {} files downloaded'.format(select_year_str, select_month_str, d_str, instrument))
-					else:
-						print('{}-{}-{}'.format(select_year_str,select_month_str,d_str), 'No', instrument, 'data for the date')
+			if select_month < 10:
+				select_month_str = '0'+str(select_month)
 			else:
-				print('{}-{}-{}'.format(select_year_str,select_month_str,d_str), 'No data for the date')
-	
+				select_month_str = str(select_month)
+			select_year_str = str(select_year)
+			
+			for d in select_day:
 
-	elif(select_month == ALL):
+				if d < 10:
+					d_str = '0'+str(d)
+				else:
+					d_str = str(d)
 
-	
+				# errors handling
+				try:
+					select_date = datetime.date.fromisoformat('{}-{}-{}'.format(select_year_str, select_month_str, d_str))
+				except:
+					print("{}-{}-{} Date is invalid".format(select_year_str, select_month_str, d_str))
+					continue
+				
+				if(select_date > datetime.date.today()):
+					print("{}-{}-{} The date has not yet occurred".format(select_year_str, select_month_str, d_str))
+					continue
+
+				url_day = url + select_year_str + '/' + select_month_str + '/' + d_str + '/'
+				page = requests.get(url_day)
+				soup = BeautifulSoup(page.content, 'html.parser')
+
+				if('404 Not Found' not in soup):
+				# print(url)
+
+					counter = 0
+					for instrument in instruments:	
+						if(str(soup).count(instrument) > 0):
+							for n in range(len(soup.find_all('a'))-5):
+								if(instrument in soup.find_all('a')[5+n].get_text()):
+									fname = soup.find_all('a')[5+n].get_text()
+									print(url_day+fname)
+									if not os.path.isdir('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,d_str)):
+										os.makedirs('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,d_str))
+									counter += 1
+									if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname))):
+										continue
+									urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname)) 
+
+							print('{}-{}-{} {} files downloaded'.format(select_year_str, select_month_str, d_str, instrument))
+						else:
+							print('{}-{}-{}'.format(select_year_str,select_month_str,d_str), 'No', instrument, 'data for the date')
+				else:
+					print('{}-{}-{}'.format(select_year_str,select_month_str,d_str), 'No data for the date')
+		
+
+		elif(select_month == ALL):
+
+			# errors handling
+			assert (len(str(select_year)) == 4 and type(select_year) == int), "Year must be a 4-digit integer."
+			for instrument in instruments:
+				assert (type(instrument) == str), "Instruments must be a string or list of strings"
+
+			select_month = which_months(select_year)
+
+			for m in select_month:
+
+				select_days = which_days(select_year, m)
+
+				select_year_str = str(select_year)
+				
+				for d in select_day:
 
 
-	elif(select_days == ALL and select_month != ALL):
+					# errors handling
+					try:
+						select_date = datetime.date.fromisoformat('{}-{}-{}'.format(select_year_str, m_str, d_str))
+					except:
+						print("{}-{}-{} Date is invalid".format(select_year_str, m_str, d_str))
+						continue
+					
+					if(select_date > datetime.date.today()):
+						print("{}-{}-{} The date has not yet occurred".format(select_year_str, m_str, d_str))
+						continue
+
+					url_day = url + select_year_str + '/' + m_str + '/' + d_str + '/'
+					page = requests.get(url_day)
+					soup = BeautifulSoup(page.content, 'html.parser')
+
+					if('404 Not Found' not in soup):
+					# print(url)
+
+						counter = 0
+						for instrument in instruments:	
+							if(str(soup).count(instrument) > 0):
+								for n in range(len(soup.find_all('a'))-5):
+									if(instrument in soup.find_all('a')[5+n].get_text()):
+										fname = soup.find_all('a')[5+n].get_text()
+										print(url_day+fname)
+										if not os.path.isdir('e-Callisto/{}/{}/{}'.format(select_year_str,m_str,d_str)):
+											os.makedirs('e-Callisto/{}/{}/{}'.format(select_year_str,m_str,d_str))
+										counter += 1
+										if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,m_str,d_str,fname))):
+											continue
+										urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,m_str,d_str,fname)) 
+
+								print('{}-{}-{} {} files downloaded'.format(select_year_str, m_str, d_str, instrument))
+							else:
+								print('{}-{}-{}'.format(select_year_str,m_str,d_str), 'No', instrument, 'data for the date')
+					else:
+						print('{}-{}-{}'.format(select_year_str,m_str,d_str), 'No data for the date')
 
 		
+
+		elif(select_days == ALL and select_month != ALL):
+
+			# errors handling
+			assert (len(str(select_year)) == 4 and type(select_year) == int), "Year must be a 4-digit integer."
+			assert (select_month >= 1 and select_month <=12 and type(select_month) == int), "Month must be a valid number."
+			for instrument in instruments:
+				assert (type(instrument) == str), "Instruments must be a string or list of strings"
+
+			select_days = which_days(select_year, select_month)
+
+
+			if select_month < 10:
+				select_month_str = '0'+str(select_month)
+			else:
+				select_month_str = str(select_month)
+			select_year_str = str(select_year)
+			
+			for d in select_days:
+
+				# errors handling
+				try:
+					select_date = datetime.date.fromisoformat('{}-{}-{}'.format(select_year_str, select_month_str, d_str))
+				except:
+					print("{}-{}-{} Date is invalid".format(select_year_str, select_month_str, d_str))
+					continue
+				
+				if(select_date > datetime.date.today()):
+					print("{}-{}-{} The date has not yet occurred".format(select_year_str, select_month_str, d_str))
+					continue
+
+				url_day = url + select_year_str + '/' + select_month_str + '/' + d_str + '/'
+				page = requests.get(url_day)
+				soup = BeautifulSoup(page.content, 'html.parser')
+
+				if('404 Not Found' not in soup):
+				# print(url)
+
+					counter = 0
+					for instrument in instruments:	
+						if(str(soup).count(instrument) > 0):
+							for n in range(len(soup.find_all('a'))-5):
+								if(instrument in soup.find_all('a')[5+n].get_text()):
+									fname = soup.find_all('a')[5+n].get_text()
+									print(url_day+fname)
+									if not os.path.isdir('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,d_str)):
+										os.makedirs('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,d_str))
+									counter += 1
+									if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname))):
+										continue
+									urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname)) 
+
+							print('{}-{}-{} {} files downloaded'.format(select_year_str, select_month_str, d_str, instrument))
+						else:
+							print('{}-{}-{}'.format(select_year_str,select_month_str,d_str), 'No', instrument, 'data for the date')
+				else:
+					print('{}-{}-{}'.format(select_year_str,select_month_str,d_str), 'No data for the date')
+	
+	except TypeError:
+		raise TypeError("download() requires 4 arguments: year, month, day, instrument") from None
+
 
 
