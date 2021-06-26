@@ -3,3 +3,4 @@ e-Callisto/
 tests/
 dist/
 callistoDownloader.egg-info/
+build/
