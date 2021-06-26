@@ -19,11 +19,11 @@ working directory/
 ```
 
 ## Functions of this package:
-<code>which_years()</code>
+`which_years()`
 
-<code>which_months(select_year)</code>
+`which_months(select_year)`
 
-<code>which_days(select_year, select_month)</code>
+`which_days(select_year, select_month)`
 
-<code>download(select_year, select_month, select_days, instruments)</code>
+`download(select_year, select_month, select_days, instruments)`
 
