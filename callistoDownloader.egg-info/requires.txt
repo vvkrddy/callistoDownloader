@@ -1,4 +1,0 @@
-requests
-os
-bs4
-datetime
