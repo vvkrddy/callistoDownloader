@@ -27,9 +27,3 @@ working directory/
 
 <code>download(select_year, select_month, select_days, instruments)</code>
 
-<code></code>
-
-<code></code>
-
-<code></code>
-
