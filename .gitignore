@@ -6,3 +6,4 @@ callistoDownloader.egg-info/
 build/
 callistoDownloader/try.ipynb
 .pytest_cache/
+.vscode/
