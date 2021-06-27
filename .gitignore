@@ -1,6 +1,8 @@
 e-Callisto/
 **__pychache__/
-tests/
+tests
 dist/
 callistoDownloader.egg-info/
 build/
+callistoDownloader/try.ipynb
+.pytest_cache/

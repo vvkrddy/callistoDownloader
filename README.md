@@ -20,15 +20,38 @@ working directory/
 ## Documentation
 Soon!
 ## Functions of this package:
-`which_years()`
+- `which_years()`
 <br>Prints all those years for which any spectrograms are available
 
-`which_months(select_year)`
+- `which_months(select_year)`
 <br>Prints all those months of a given year for which spectrograms are available
 
-`which_days(select_year, select_month)`
+- `which_days(select_year, select_month)`
 <br>Prints all those days of a given year and month for which spectrograms are available
 
-`download(select_year, select_month, select_days, instruments)`
+- `instrument_codes()`
+<br> Prints all *instrument codes*
+
+- `download(select_year, select_month, select_day, instruments)`
 <br>Downloads the spectrograms for given list of days of a given year and month; for given list of instruments
+## Argument rules:
+
+- `select_year`
+<br> must be a valid 4-digit integer
+
+- `select_month`
+<br> must be a valid integer
+
+- `select_day`
+<br> could either be a valid integer or a list of valid integers
+
+- `instruments` 
+<br> could either be a list of *instrument codes* or a single *instrument code*
+<!-- <br> Refer documentation for *instrument codes* -->
+
+IMPORTANT *Instrument codes* is a list of codes derived specifically for this package and each code corresponds to one of the instrument-location combination from [link](http://soleil.i4ds.ch/solarradio/data/readme.txt).
+
+
+
+
 
