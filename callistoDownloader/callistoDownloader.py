@@ -201,7 +201,7 @@ def instrument_codes():
 
 	"""
 
-	s = urllib.parse.quote_plus(soleil.i4ds.ch/solarradio/data/readme.txt)
+	s = urllib.parse.quote_plus("soleil.i4ds.ch/solarradio/data/readme.txt")
 
 	print("Visit "+"https://"+s)
 
