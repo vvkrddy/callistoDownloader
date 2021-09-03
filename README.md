@@ -32,7 +32,7 @@ Soon!
 <br>Prints all those days of a given year and month for which spectrograms are available
 
 - `instrument_codes()`
-<br> Prints all *instrument codes*
+<br> Prints instructions for choosing `instruments` parameter in `download()`
 
 - `download(select_year, select_month, select_day, instruments)`
 <br>Downloads the spectrograms for given list of days of a given year and month; for given list of instruments
