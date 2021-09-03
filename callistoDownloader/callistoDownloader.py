@@ -184,13 +184,24 @@ def instrument_codes():
 
 	Instrument codes are codes derived specifically for this package 
 	and each code corresponds to one of the instrument-location combination 
-	from `link <http://soleil.i4ds.ch/solarradio/data/readme.txt>`.
+	from link http://soleil.i4ds.ch/solarradio/data/readme.txt.
 
 	If the file name is BLEN5M_20090411_100001_58.fit.gz;
 	then the instrument code is the characters before the first underscore,
 	which in this case is BLEN5M.
 
 	This will download all spectrograms from all antenna types at Blein, Switzerland.
+
+	OR
+
+	From the http://soleil80.cs.technik.fhnw.ch/solarradio/data/2002-20yy_Callisto/
+	you can choose to visit the webpage of a particular day, say January 01, 2021;
+
+	The particular webpage for the day is http://soleil80.cs.technik.fhnw.ch/solarradio/data/2002-20yy_Callisto/2021/01/01/
+
+	Suppose, you would want to download files from ALASKA-ANCHORAGE files, 
+	then use the instrument code 'ALASKA-ANCHORAGE' as the fourth parameter in the download() function.
+
 
 	Parameters
 	----------
@@ -209,6 +220,7 @@ def instrument_codes():
 		\nthen the instrument code is the characters before the first underscore.\
 		\nwhich in this case is BLEN5M\
 		\n\nThis will download all spectrograms from all antenna types at Blein, Switzerland")
+
 
 
 def download(select_year, select_month, select_day, instruments):
