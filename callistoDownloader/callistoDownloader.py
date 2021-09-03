@@ -182,20 +182,33 @@ def which_days(select_year, select_month):
 def instrument_codes():
 	"""
 
-	Prints all instrument codes.
-
 	Instrument codes are codes derived specifically for this package 
 	and each code corresponds to one of the instrument-location combination 
 	from `link <http://soleil.i4ds.ch/solarradio/data/readme.txt>`.
+
+	If the file name is BLEN5M_20090411_100001_58.fit.gz;
+	then the instrument code is the characters before the first underscore,
+	which in this case is BLEN5M.
+
+	This will download all spectrograms from all antenna types at Blein, Switzerland.
 
 	Parameters
 	----------
 
 	Returns
 	-------
-	None
+	INSTRUCTIONS
 
 	"""
+
+	s = urllib.parse.quote_plus(soleil.i4ds.ch/solarradio/data/readme.txt)
+
+	print("Visit "+"https://"+s)
+
+	print("If the file name is BLEN5M_20090411_100001_58.fit.gz; \
+		\nthen the instrument code is the characters before the first underscore.\
+		\nwhich in this case is BLEN5M\
+		\n\nThis will download all spectrograms from all antenna types at Blein, Switzerland")
 
 
 def download(select_year, select_month, select_day, instruments):
