@@ -1,5 +1,7 @@
 # callistoDownloader
 
+[![PyPI version](https://badge.fury.io/py/callistoDownloader.svg)](https://badge.fury.io/py/callistoDownloader)
+
 A python package for downloading spectrograms sourced from the [e-Callisto](http://www.e-callisto.org), which is an international network of solar radio spectrometers.
 
 This package allows for bulk downloads of spectrograms for a given set of days in a given month and year, for a list of given instruments (visit [link](http://soleil.i4ds.ch/solarradio/data/readme.txt) for a list of all instruments from which the data is sourced).
