@@ -212,10 +212,9 @@ def instrument_codes():
 
 	"""
 
-	s = urllib.parse.quote_plus("soleil.i4ds.ch//solarradio//data//readme.txt")
-
-	print("Visit "+"https://"+s)
-
+	s = "http://soleil.i4ds.ch/solarradio/data/readme.txt"
+	print("Visit "+s)
+	
 	print("If the file name is BLEN5M_20090411_100001_58.fit.gz; \
 		\nthen the instrument code is the characters before the first underscore.\
 		\nwhich in this case is BLEN5M\
