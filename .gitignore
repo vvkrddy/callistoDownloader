@@ -1,6 +1,6 @@
 e-Callisto/
 **__pycache__/
-**.ipynb_checkpoints/
+.ipynb_checkpoints/
 misc/
 tests
 dist/
@@ -9,3 +9,4 @@ build/
 callistoDownloader/try.ipynb
 .pytest_cache/
 .vscode/
+Untitled.ipynb
