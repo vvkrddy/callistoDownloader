@@ -303,7 +303,9 @@ def download(select_year, select_month, select_day, instruments):
 								counter += 1
 								if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname))):
 									continue
-								urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname)) 
+
+								print(url_day+fname, "== Downloaded")
+								# urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname)) 
 
 						print('{}-{}-{} {} files downloaded'.format(select_year_str, select_month_str, d_str, instrument))
 					else:
@@ -362,7 +364,9 @@ def download(select_year, select_month, select_day, instruments):
 								counter += 1
 								if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname))):
 									continue
-								urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname)) 
+
+								print(url_day+fname, "== Downloaded")
+								# urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,d_str,fname)) 
 
 						print('{}-{}-{} {} files downloaded'.format(select_year_str, select_month_str, d_str, instrument))
 					else:

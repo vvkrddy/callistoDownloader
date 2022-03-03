@@ -18,7 +18,7 @@ setup(
     version=get_property('__version__', 'callistoDownloader'),
     description='A python package to download e-Callisto spectrograms',
     url='https://github.com/vvkrddy/callistoDownloader',
-    author='Pininti Vivek Reddy',
+    author='Vivek Reddy Pininti',
     author_email='',
     license='MIT',
     packages=find_packages(),
