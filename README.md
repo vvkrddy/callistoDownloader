@@ -38,7 +38,7 @@ working directory/
 <br> Prints instructions for choosing `instruments` parameter in `download()`
 
 - `download(select_year, select_month, select_day, instruments)`
-<br>Downloads the spectrograms for given list of days of a given year and month; for given list of instruments
+<br>Downloads the spectrograms for given list of days of a given year and month; for set of instruments
 ## Argument rules:
 
 - `select_year`
@@ -51,10 +51,14 @@ working directory/
 <br> could either be a valid integer or a list of valid integers
 
 - `instruments` 
-<br> could either be a list of *instrument codes* or a single *instrument code*
+<br> could be either a single *instrument code*[^1] or a wildcard string ending with an asterisk indicating to download all the files which start with the wildcard string.
 <!-- <br> Refer documentation for *instrument codes* -->
 
-IMPORTANT *Instrument codes* is a list of codes derived specifically for this package and each code corresponds to one of the instrument-location combination from [link](http://soleil.i4ds.ch/solarradio/data/readme.txt).
+[^1]: *Instrument codes* is a list of codes derived specifically for this package and each code corresponds to one of the instrument-location combination from [link](http://soleil.i4ds.ch/solarradio/data/readme.txt). The text before the first hyphen in a file name is the *instrument code*.
+
+>If you would want to download all files from **Mauritius**, then the argument for `instruments` would be `MRT*` but if you would want to download only the data from Callisto intensity 45 MHz-870 MHz	of Poste de Flacq, Mauritius, LPDA, then that argument would be `MRT1`. 
+
+> If the `instruments` argument of the `download()` function ends with a string, all the files from a given date which start with the argument are downloaded.
 
 
 
