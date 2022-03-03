@@ -21,7 +21,7 @@ working directory/
 
 ## Example
 
-![alt text](misc/example.png)
+![alt text](examples/images//example.png)
 
 
 ## Functions of this package:
@@ -56,9 +56,13 @@ working directory/
 
 [^1]: *Instrument codes* is a list of codes derived specifically for this package and each code corresponds to one of the instrument-location combination from [link](http://soleil.i4ds.ch/solarradio/data/readme.txt). The text before the first hyphen in a file name is the *instrument code*.
 
->If you would want to download all files from **Mauritius**, then the argument for `instruments` would be `MRT*` but if you would want to download only the data from Callisto intensity 45 MHz-870 MHz	of Poste de Flacq, Mauritius, LPDA, then that argument would be `MRT1`. 
+<hr>
 
-> If the `instruments` argument of the `download()` function ends with a string, all the files from a given date which start with the argument are downloaded.
+Example for the `instruments` parameter:
+
+See [link](http://soleil.i4ds.ch/solarradio/data/readme.txt) and if you would want to download all files from **Mauritius**, then the argument for `instruments` would be `MRT*` but if you would want to download only the data from Callisto intensity 45 MHz-870 MHz	of Poste de Flacq, Mauritius, LPDA, then that argument would be `MRT1`. 
+
+If the `instruments` argument of the `download()` function ends with an asterisk, all the files from a given date which start with the argument are downloaded.
 
 
 
