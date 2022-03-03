@@ -2,7 +2,7 @@ import requests
 import os
 import urllib.request
 from bs4 import BeautifulSoup
-import regex as re
+import re
 import datetime
 import numpy as np
 

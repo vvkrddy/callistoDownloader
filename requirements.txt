@@ -2,4 +2,4 @@ requests
 bs4
 datetime
 numpy
-regex
+re
