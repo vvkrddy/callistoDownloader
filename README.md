@@ -58,7 +58,7 @@ working directory/
 
 <hr>
 
-Example for the `instruments` parameter:
+Understanding the `instruments` parameter:
 
 See [link](http://soleil.i4ds.ch/solarradio/data/readme.txt) and if you would want to download all files from **Mauritius**, then the argument for `instruments` would be `MRT*` but if you would want to download only the data from Callisto intensity 45 MHz-870 MHz	of Poste de Flacq, Mauritius, LPDA, then that argument would be `MRT1`. 
 
