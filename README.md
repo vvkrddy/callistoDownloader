@@ -39,6 +39,9 @@ working directory/
 
 - `download(select_year, select_month, select_day, instruments)`
 <br>Downloads the spectrograms for given list of days of a given year and month; for set of instruments
+
+If a file already exists, the download() will skip re-downloading it but the progress bar indicates the total files and not just the downloaded ones.
+
 ## Argument rules:
 
 - `select_year`

@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import re
 import datetime
 import numpy as np
-
+from tqdm import tqdm
 
 url = 'http://soleil80.cs.technik.fhnw.ch/solarradio/data/2002-20yy_Callisto/'
 
@@ -289,11 +289,18 @@ def download(select_year, select_month, select_day, instruments):
 	
 	elif(instruments in unique_ID):
 		
+		total = sum(instruments in s for s in all_files)
+
 		counter = 0
-		if(sum(instruments in s for s in all_files) > 0):
-			print("{} files will be downloaded.".format(sum(instruments in s for s in all_files)))
-			for fname in all_files:
-				if(n.split('_')[0] == 'instruments'):
+		if(total > 0):
+
+			if(total > 1):
+				print("{} files will be downloaded.".format(total))
+			else:
+				print("{} file will be downloaded.".format(total))
+			
+			for fname,i in zip(all_files,tqdm(range(total), desc = "Downloading...", ncols=100)):
+				if(fname.split('_')[0] == instruments):
 					if not os.path.isdir('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str)):
 						os.makedirs('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str))
 					counter += 1
@@ -301,16 +308,24 @@ def download(select_year, select_month, select_day, instruments):
 						continue
 					urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str,fname)) 
 
-			print('{}-{}-{} {} filsdfes downloaded'.format(select_year_str, select_month_str, select_day_str, instrument))
+			print('{}-{}-{} {} files downloaded'.format(select_year_str, select_month_str, select_day_str, instruments))
 		
 		# no else statement since the instrument is checked in unique_ID before
 
 	elif("*" in instruments):
 		
 		counter = 0
-		if(sum(instruments[:-1] in s for s in all_files) > 0):
-			print("{} files will be downloaded.".format(sum(instruments[:-1] in s for s in all_files)))
-			for fname in all_files:
+		
+		total = sum(instruments[:-1] in s for s in all_files)
+
+		if(total > 0):
+
+			if(total > 1):
+				print("{} files will be downloaded.".format(total))
+			else:
+				print("{} file will be downloaded.".format(total))
+
+			for fname,i in zip(all_files,tqdm(range(total), desc = "Downloading...", ncols=100)):
 				if(fname.startswith(instruments[:-1])):
 					if not os.path.isdir('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str)):
 						os.makedirs('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str))
@@ -318,6 +333,8 @@ def download(select_year, select_month, select_day, instruments):
 					if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str,fname))):
 						continue
 					urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str,fname)) 
+					
+
 
 			print('{}-{}-{} {} files downloaded'.format(select_year_str, select_month_str, select_day_str, instruments))
 		
