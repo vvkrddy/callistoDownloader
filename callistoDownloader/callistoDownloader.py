@@ -192,7 +192,7 @@ def instrument_codes():
 	then the instrument code is the characters before the first underscore,
 	which in this case is BLEN5M.
 
-	This will download all spectrograms from all antenna types at Blein, Switzerland.
+	This will download all spectrograms from all antenna types at Bleien, Switzerland.
 
 	OR
 
@@ -220,7 +220,7 @@ def instrument_codes():
 	print("If the file name is BLEN5M_20090411_100001_58.fit.gz; \
 		\nthen the instrument code is the characters before the first underscore.\
 		\nwhich in this case is BLEN5M\
-		\n\nThis will download all spectrograms from all antenna types at Blein, Switzerland")
+		\n\nThis will download all spectrograms from all antenna types at Bleien, Switzerland")
 
 
 
