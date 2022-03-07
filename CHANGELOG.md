@@ -8,3 +8,7 @@
 ## 0.4.3
 
 - Added progressbar
+
+## 0.4.4
+
+- Fixed a bug caused by requirements.txt
