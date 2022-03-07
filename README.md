@@ -57,7 +57,7 @@ If a file already exists, the download() will skip re-downloading it but the pro
 
 Understanding the `instruments` parameter:
 
-See [link](http://soleil.i4ds.ch/solarradio/data/readme.txt) and if you would want to download all files from **Mauritius**, then the argument for `instruments` would be `MRT*` but if you would want to download only the data from Callisto intensity 45 MHz-870 MHz	of Poste de Flacq, Mauritius, LPDA, then that argument would be `MRT1`. 
+See [link](http://soleil.i4ds.ch/solarradio/data/readme.txt) and if you would want to download all files from **Mauritius**, then the argument for `instruments` would be `'MRT*'` but if you would want to download only the data from Callisto intensity 45 MHz-870 MHz	of Poste de Flacq, Mauritius, LPDA, then that argument would be `'MRT1'`. 
 
 If the `instruments` argument of the `download()` function ends with an asterisk, all the files from a given date which start with the argument are downloaded.
 
