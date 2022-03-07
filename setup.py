@@ -5,7 +5,7 @@ import re
 
 from pathlib import Path
 this_directory = Path(__file__).parent
-long_description = ("README.md").read_text()
+long_description = (this_directory / "README.md").read_text()
 
 
 def get_property(prop, project):

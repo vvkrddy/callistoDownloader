@@ -14,6 +14,7 @@
 - Fixed a bug caused by requirements.txt
 
 
-## 0.4.5
+## 0.4.4.2
 
 - Fixed a bug which did not allow for downloads from today
+- Added project description to PyPI

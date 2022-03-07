@@ -18,12 +18,6 @@ working directory/
                 └───file1..
                     file2..
 ```
-
-## Example
-
-![alt text](examples/images//example.png)
-
-
 ## Functions of this package:
 - `which_years()`
 <br>Prints all those years for which any spectrograms are available
