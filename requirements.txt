@@ -2,5 +2,4 @@ requests
 bs4
 datetime
 numpy
-re
 tqdm
