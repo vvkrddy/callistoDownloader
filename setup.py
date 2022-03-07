@@ -2,6 +2,12 @@ from setuptools import setup, find_packages
 import numpy, sys
 import re
 
+
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = ("README.md").read_text()
+
+
 def get_property(prop, project):
     result = re.search(r'{}\s*=\s*[\'"]([^\'"]*)[\'"]'.format(prop),
                        open(project + '/__init__.py').read())
@@ -22,9 +28,12 @@ setup(
     author_email='',
     license='MIT',
     packages=find_packages(),
+    long_description = long_description,
+    long_description_content_type="text/markdown",
     include_dirs=[numpy.get_include()],
     include_package_data = True,
     zip_safe=False,
+    
     classifiers=[
 
         'Development Status :: 3 - Alpha',      
