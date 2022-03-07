@@ -289,24 +289,25 @@ def download(select_year, select_month, select_day, instruments):
 	
 	elif(instruments in unique_ID):
 		
-		total = sum(instruments in s for s in all_files)
+		total_files = sum(instruments in s for s in all_files)
 
 		counter = 0
-		if(total > 0):
+		if(total_files > 0):
 
-			if(total > 1):
-				print("{} files will be downloaded.".format(total))
+			if(total_files > 1):
+				print("{} files will be downloaded.".format(total_files))
 			else:
-				print("{} file will be downloaded.".format(total))
+				print("{} file will be downloaded.".format(total_files))
+
+			req_files = [i for i in all_files if i.split('_')[0] == instruments]
 			
-			for fname,i in zip(all_files,tqdm(range(total), desc = "Downloading...", ncols=100)):
-				if(fname.split('_')[0] == instruments):
-					if not os.path.isdir('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str)):
-						os.makedirs('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str))
-					counter += 1
-					if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str,fname))):
-						continue
-					urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str,fname)) 
+			for i in tqdm(range(len(req_files)), desc = "Downloading", ncols=100):
+				if not os.path.isdir('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str)):
+					os.makedirs('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str))
+				counter += 1
+				if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str,req_files[i]))):
+					continue
+				urllib.request.urlretrieve(url_day+req_files[i], 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str,req_files[i])) 
 
 			print('{}-{}-{} {} files downloaded'.format(select_year_str, select_month_str, select_day_str, instruments))
 		
@@ -316,24 +317,26 @@ def download(select_year, select_month, select_day, instruments):
 		
 		counter = 0
 		
-		total = sum(instruments[:-1] in s for s in all_files)
+		total_files = sum(instruments[:-1] in s for s in all_files)
 
-		if(total > 0):
+		if(total_files > 0):
 
-			if(total > 1):
-				print("{} files will be downloaded.".format(total))
+			if(total_files > 1):
+				print("{} files will be downloaded.".format(total_files))
 			else:
-				print("{} file will be downloaded.".format(total))
+				print("{} file will be downloaded.".format(total_files))
 
-			for fname,i in zip(all_files,tqdm(range(total), desc = "Downloading...", ncols=100)):
-				if(fname.startswith(instruments[:-1])):
-					if not os.path.isdir('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str)):
-						os.makedirs('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str))
-					counter += 1
-					if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str,fname))):
-						continue
-					urllib.request.urlretrieve(url_day+fname, 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str,fname)) 
-					
+			req_files = [i for i in all_files if i.startswith(instruments[:-1])]
+
+			for i in tqdm(range(len(req_files)), desc = "Downloading", ncols=100):
+				
+				if not os.path.isdir('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str)):
+					os.makedirs('e-Callisto/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str))
+				counter += 1
+				if(os.path.exists('e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str,req_files[i]))):
+					continue
+				urllib.request.urlretrieve(url_day+req_files[i], 'e-Callisto/{}/{}/{}/{}'.format(select_year_str,select_month_str,select_day_str,req_files[i])) 
+				
 
 
 			print('{}-{}-{} {} files downloaded'.format(select_year_str, select_month_str, select_day_str, instruments))

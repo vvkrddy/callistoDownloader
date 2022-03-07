@@ -21,3 +21,7 @@
 ## 0.4.4.3
 
 - Made a correction in the project description
+
+## 0.4.4.4
+
+- Fixed a bug related to progress bar
