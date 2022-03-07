@@ -96,7 +96,7 @@ def days(select_year, select_month):
 	assert (select_month >= 1 and select_month <=12), "Second argument month must be a valid integer"
 	if(datetime.date.today().year == select_year):
 		assert (datetime.date.today().month >= select_month), "The month {} in {} has not yet occurred".format(select_month, select_year)
-	assert (datetime.date.today().year > select_year), "The year {} has not yet occurred".format(select_year)
+	assert (datetime.date.today().year >= select_year), "The year {} has not yet occurred".format(select_year)
 	# 
 
 	if select_month < 10:
@@ -266,7 +266,7 @@ def download(select_year, select_month, select_day, instruments):
 		select_date = datetime.date.fromisoformat('{}-{}-{}'.format(select_year_str, select_month_str, select_day_str))
 	except:
 		raise ValueError("{}-{}-{} Date is invalid".format(select_year_str, select_month_str, d_str)) from None
-	assert (select_date < datetime.date.today()), "{}-{}-{} The date has not yet occurred".format(select_year_str, select_month_str, select_day_str)
+	assert (select_date <= datetime.date.today()), "{}-{}-{} The date has not yet occurred".format(select_year_str, select_month_str, select_day_str)
 
 	url_day = url + select_year_str + '/' + select_month_str + '/' + select_day_str + '/'
 	page = requests.get(url_day)
@@ -276,7 +276,7 @@ def download(select_year, select_month, select_day, instruments):
 
 	soup_list = list(soup.find_all('a'))
 	
-	assert len(soup_list) != 0, '{}-{}-{} No datdda for the date'.format(select_year_str,select_month_str,select_day_str)
+	assert len(soup_list) != 0, '{}-{}-{} No data for the date'.format(select_year_str,select_month_str,select_day_str)
 	
 	all_files = [re.search(r'href="(.*?)"', str(i)).group(1) for i in soup_list \
 				if '.fit.gz' in re.search(r'href="(.*?)"', str(i)).group(1)]
